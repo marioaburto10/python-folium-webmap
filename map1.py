@@ -17,11 +17,24 @@ map = folium.Map(location=[38.554587, -121.511129], zoom_start=6, tiles="Mapbox 
 # create a feature froup using folium to create our markers on the map
 fg = folium.FeatureGroup(name="My Map")
 
+# function that will return a color depending on the numerical value of the elevation of each volcano
+def maker_color_picker(elevation):
+	if elevation < 1000:
+		return 'green'
+	elif 1000 <= elevation < 3000:
+		return 'orange'
+	else:
+		return 'red'
+
 # use a for loop to iterate through every latitude, longitude, and elevation
 # use the key word zip to be able to pass in three lists and be able to iterate through all three at the same time
 for lt, lg, el in zip(lat, lng, elev):
 	# create a pop up marker at a certain location with a message of each volcano elevation and add it to the map
-	fg.add_child(folium.Marker(location=[lt, lg], popup=str(el)+" meters", icon=folium.Icon(color="green")))
+	fg.add_child(folium.Marker(location=[lt, lg], popup=str(el)+" meters", icon=folium.Icon(color=maker_color_picker(el))))
+
+
+
+
 
 # add each dynamically created feature group (marker) to the map
 map.add_child(fg)
