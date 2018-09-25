@@ -32,6 +32,8 @@ for lt, lg, el in zip(lat, lng, elev):
 	# create a circle pop up marker at a certain location with a message of each volcano elevation and add it to the map
 	fg.add_child(folium.CircleMarker(location=[lt, lg], radius=6, popup=str(el)+" meters", fill=True, fill_color=maker_color_picker(el), color="grey", fill_opacity=0.7))
 
+# adding GeoJson Polygon layer to the map by reading the world.json file
+fg.add_child(folium.GeoJson(data=(open("Resources/world.json", "r", encoding="utf-8-sig").read())))
 
 # add each dynamically created feature group (marker) to the map
 map.add_child(fg)
