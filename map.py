@@ -23,22 +23,29 @@ def maker_color_picker(elevation):
 	else:
 		return 'red'
 
-# create a feature froup using folium to create our markers on the map
-fg = folium.FeatureGroup(name="My Map")
+# create a feature group using folium to add markers on the map
+fg_v = folium.FeatureGroup(name="Volcanoes")
 
 # use a for loop to iterate through every latitude, longitude, and elevation
 # use the key word zip to be able to pass in three lists and be able to iterate through all three at the same time
 for lt, lg, el in zip(lat, lng, elev):
 	# create a circle pop up marker at a certain location with a message of each volcano elevation and add it to the map
-	fg.add_child(folium.CircleMarker(location=[lt, lg], radius=6, popup=str(el)+" meters", fill=True, fill_color=maker_color_picker(el), color="grey", fill_opacity=0.7))
+	fg_v.add_child(folium.CircleMarker(location=[lt, lg], radius=8, popup=str(el)+" meters", fill=True, fill_color=maker_color_picker(el), color="grey", fill_opacity=0.7))
+
+# create another feature group to add a layer for population on the map
+fg_p = folium.FeatureGroup(name="Population")
 
 # adding GeoJson Polygon layer to the map by reading the world.json file
 # it will create a polygon layer and the polygon color will be based on population
-fg.add_child(folium.GeoJson(data=open("Resources/world.json", "r", encoding="utf-8-sig").read(),
+fg_p.add_child(folium.GeoJson(data=open("Resources/world.json", "r", encoding="utf-8-sig").read(),
 style_function=lambda x: {"fillColor" : "green" if x["properties"]["POP2005"] < 10000000 else "orange" if 10000000 <= x["properties"]["POP2005"] < 20000000 else "red" }))
 
-# add each dynamically created feature group (marker) to the map
-map.add_child(fg)
+# add both feature groups to the map
+map.add_child(fg_v)
+map.add_child(fg_p)
+
+# add functionality to the map to allow us to manually turn each layer off and on
+map.add_child(folium.LayerControl())
 
 # generate a web map and save it as an html file
-map.save("Map1.html")
+map.save("Map.html")
