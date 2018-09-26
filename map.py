@@ -4,7 +4,7 @@ import folium
 import pandas
 
 # using pandas to read and bring in our text file with all our volcano data
-data = pandas.read_csv("Resources/volcano_data.txt")
+data = pandas.read_csv("assets/data/volcano_data.txt")
 
 # extract certain columns from the data file and turn them into lists so that we can interate through them
 lat = list(data["LAT"])
@@ -37,12 +37,13 @@ fg_p = folium.FeatureGroup(name="Population")
 
 # adding GeoJson Polygon layer to the map by reading the world.json file
 # it will create a polygon layer and the polygon color will be based on population
-fg_p.add_child(folium.GeoJson(data=open("Resources/world.json", "r", encoding="utf-8-sig").read(),
-style_function=lambda x: {"fillColor" : "green" if x["properties"]["POP2005"] < 10000000 else "orange" if 10000000 <= x["properties"]["POP2005"] < 20000000 else "red" }))
+fg_p.add_child(folium.GeoJson(data=open("assets/data/world.json", "r", encoding="utf-8-sig").read(),
+style_function=lambda x: {"fillColor" : "green" if x["properties"]["POP2005"] < 10000000 
+else "orange" if 10000000 <= x["properties"]["POP2005"] < 20000000 else "red" }))
 
 # add both feature groups to the map
-map.add_child(fg_v)
 map.add_child(fg_p)
+map.add_child(fg_v)
 
 # add functionality to the map to allow us to manually turn each layer off and on
 map.add_child(folium.LayerControl())
