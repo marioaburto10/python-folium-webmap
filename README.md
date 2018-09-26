@@ -15,3 +15,5 @@ else "orange" if 10000000 <= x["properties"]["POP2005"] < 20000000 else "red" })
 <img src="https://github.com/marioaburto10/python-folium-webmap/blob/master/assets/images/populationLayer.png" width="400px" height="200px" />
 
 Lastly, I added layer control functionality to my map that allows me to turn the marker and population layer on and off. This is located on the top right of my map.
+
+<img src="https://github.com/marioaburto10/python-folium-webmap/blob/master/assets/images/layerControl.png" width="500px" height="210px" />
