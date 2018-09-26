@@ -1,4 +1,4 @@
-# importing folium dependency that will be used to
+# importing folium dependency that will be used to dynamically build my web map
 import folium
 # importing pandas to do some data processing
 import pandas
